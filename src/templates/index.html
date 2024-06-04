@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Recommendation System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .form-control {
+            border-radius: 20px;
+        }
+        .btn-primary {
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 18px;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            background: #efefef;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        .slider:hover {
+            opacity: 1;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to our Recipe Recommendation System!</h1>
+        <form method="POST" class="mb-3">
+            <div class="form-group">
+                <label for="ingredients">Please enter the ingredients you have in your kitchen:</label>
+                <input type="text" class="form-control" id="ingredients" name="ingredients" required>
+            </div>
+            <div class="form-group">
+                <label for="spice_level">Preferred Spice Level:</label>
+                <select class="form-control" id="spice_level" name="spice_level">
+                    <option value="Mild">Mild</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hot">Hot</option>
+                    <option value="Very Hot">Very Hot</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cuisine_type">Cuisine Type:</label>
+                <input type="text" class="form-control" id="cuisine_type" name="cuisine_type" list="cuisine-suggestions">
+                <datalist id="cuisine-suggestions">
+                    <option value="Italian">
+                    <option value="Chinese">
+                    <option value="Indian">
+                    <option value="Mexican">
+                    <option value="Japanese">
+                    <option value="Thai">
+                    <option value="Vietnamese">
+                    <option value="Korean">
+                    <!-- Add more suggestions here -->
+                </datalist>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Recommendations</button>
+        </form>
+        {% if recommendations %}
+        <div>
+            <h2>Recommendations:</h2>
+            <ul class="list-group">
+                {% for rec in recommendations %}
+                <li class="list-group-item">
+                    <strong>Recipe:</strong> {{ rec['recipe'] }}<br>
+                    <strong>Ingredients:</strong> {{ rec['ingredients'] }}<br>
+                    <strong>User Review:</strong> {{ rec['user_review'] }}<br>
+                    <strong>URL:</strong> <a href="{{ rec['url'] }}" target="_blank">View Recipe</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <!-- Recommendations will be shown here -->
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
